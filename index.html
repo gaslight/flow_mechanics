@@ -1,0 +1,55 @@
+<!doctype html>
+<html ng-app="flowApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="flow.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="flow.css">
+  </head>
+  <body>
+    <div class="container" ng-controller="FlowController as flow">
+      <div class="page-header">
+        <h1>Flow</h1>
+        <button class="btn" ng-click="flow.moveItem()">Move Item</button>
+      </div>
+      <div class="row">
+        <h2>Columns</h2>
+        <div class="col-md-1" ng-repeat="column in flow.columns">
+          <span><strong>{{column.name}}</strong></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1" ng-repeat="column in flow.columns">
+          <span ng-repeat="item in flow.itemsInColumn(column.id)">
+            {{item.name}}
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1" ng-repeat="column in flow.columns">
+          <span>WIP: {{flow.itemsInColumn(column.id).length}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <table class="table table-striped">
+          <thead>
+            <th>Item</th>
+            <th>Active Time</th>
+            <th>Inactive Time</th>
+            <th>Total Time</th>
+            <th>% Inactive</th>
+          </thead>
+          <tr ng-repeat="widget in flow.items">
+            <td>{{widget.name}}</td>
+            <td>{{widget.times['active']}}</td>
+            <td>{{widget.times['idle']}}</td>
+            <td>{{widget.times['active'] + widget.times['idle']}}</td>
+            <td>{{flow.idleTimePercentage(widget)}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
