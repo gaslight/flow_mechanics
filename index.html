@@ -11,25 +11,24 @@
   <body>
     <div class="container" ng-controller="FlowController as flow">
       <div class="page-header">
-        <h1>Flow</h1>
-        <button class="btn" ng-click="flow.moveItem()">Move Item</button>
+        <button class="btn btn-primary" ng-click="flow.play()" ng-disabled="flow.running">Start</button>
+        <button class="btn btn-danger" ng-click="flow.resetBoard()" ng-disabled="!flow.done">Reset</button>
       </div>
       <div class="row">
-        <h2>Columns</h2>
         <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span><strong>{{column.name}}</strong></span>
+          <span><strong>{{column.name}} ({{column.wipLimit}})</strong></span>
         </div>
       </div>
       <div class="row">
         <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span ng-repeat="item in flow.itemsInColumn(column.id)">
+          <span ng-repeat="item in flow.itemsInColumn(column)">
             {{item.name}}
           </span>
         </div>
       </div>
       <div class="row">
         <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span>WIP: {{flow.itemsInColumn(column.id).length}}</span>
+          <span>WIP: {{flow.itemsInColumn(column).length}}</span>
         </div>
       </div>
       <div class="row">
@@ -41,14 +40,38 @@
             <th>Total Time</th>
             <th>% Inactive</th>
           </thead>
-          <tr ng-repeat="widget in flow.items">
-            <td>{{widget.name}}</td>
-            <td>{{widget.times['active']}}</td>
-            <td>{{widget.times['idle']}}</td>
-            <td>{{widget.times['active'] + widget.times['idle']}}</td>
-            <td>{{flow.idleTimePercentage(widget)}}</td>
-          </tr>
+          <tbody>
+            <tr ng-repeat="widget in flow.items">
+              <td>{{widget.name}}</td>
+              <td>{{widget.times['active']}}</td>
+              <td>{{widget.times['idle']}}</td>
+              <td>{{widget.times['active'] + widget.times['idle']}}</td>
+              <td>{{flow.idleTimePercentage(widget)}}</td>
+            </tr>
+            <tr>
+              <td><strong>Totals</strong></td>
+              <td>{{flow.totalActiveTime()}}</td>
+              <td>{{flow.totalIdleTime()}}</td>
+              <td>{{flow.totalTime()}}</td>
+              <td>{{flow.totalIdleTimePercentage()}}</td>
+            </tr>
+          </tbody>
         </table>
+        <table class="table table-striped">
+          <caption><strong>Historicals</strong></caption>
+          <thead>
+              <th>Active Time</td>
+              <th>Idle Time</td>
+              <th>Total Time</td>
+              <th>% Inactive</td>
+          </thead>
+          <tbody>
+            <tr ng-repeat="historical in flow.historicals">
+              <td>{{historical[0]}}</td>
+              <td>{{historical[1]}}</td>
+              <td>{{historical[2]}}</td>
+              <td>{{historical[3]}}</td>
+            </tr>
       </div>
     </div>
   </body>
