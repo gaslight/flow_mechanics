@@ -15,7 +15,7 @@
         <button class="btn btn-danger" ng-click="flow.resetBoard()" ng-disabled="!flow.done">Reset</button>
       </div>
       <div class="row">
-        <div class="col-md-1" ng-repeat="column in flow.columns">
+        <div class="even-columns block" ng-repeat="column in flow.columns">
           <span><strong>{{column.name}}</strong></span>
         </div>
       </div>
@@ -27,8 +27,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span>WIP: {{flow.itemsInColumn(column).length}}/{{column.wipLimit}}</span>
+        <div class="even-columns block" ng-repeat="column in flow.columns">
+          <span class='smaller-text'>WIP: {{flow.itemsInColumn(column).length}}/{{column.wipLimit}}</span>
         </div>
       </div>
       <div class="row">
