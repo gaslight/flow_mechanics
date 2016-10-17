@@ -19,9 +19,9 @@
           <span><strong>{{column.name}}</strong></span>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span ng-repeat="item in flow.itemsInColumn(column)">
+      <div class="row middle-blocks-height">
+        <div class="even-columns block" ng-repeat="column in flow.columns">
+          <span class='smaller-text' ng-repeat="item in flow.itemsInColumn(column)">
             {{item.name}}
           </span>
         </div>
