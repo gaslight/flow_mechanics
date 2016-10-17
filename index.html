@@ -16,7 +16,7 @@
       </div>
       <div class="row">
         <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span><strong>{{column.name}} ({{column.wipLimit}})</strong></span>
+          <span><strong>{{column.name}}</strong></span>
         </div>
       </div>
       <div class="row">
@@ -28,7 +28,7 @@
       </div>
       <div class="row">
         <div class="col-md-1" ng-repeat="column in flow.columns">
-          <span>WIP: {{flow.itemsInColumn(column).length}}</span>
+          <span>WIP: {{flow.itemsInColumn(column).length}}/{{column.wipLimit}}</span>
         </div>
       </div>
       <div class="row">
