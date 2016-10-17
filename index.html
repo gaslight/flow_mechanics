@@ -63,13 +63,13 @@
         <table class="table table-striped">
           <caption><strong>Average Queue Sizes</strong></caption>
           <thead>
-            <th ng-repeat="col in flow.queueColumns()">
+            <th  class='col-xs-3' ng-repeat="col in flow.queueColumns()">
               {{col.name}}
             </th>
           </thead>
           <tbody>
             <tr>
-              <td ng-repeat="col in flow.queueColumns()">
+              <td  class='col-xs-3' ng-repeat="col in flow.queueColumns()">
                 {{flow.averageQueueSize(col)}}
               </td>
             </tr>
@@ -80,17 +80,17 @@
         <table class="table table-striped">
           <caption><strong>Historical Times</strong></caption>
           <thead>
-              <th>Active Time</td>
-              <th>Idle Time</td>
-              <th>Total Time</td>
-              <th>% Inactive</td>
+              <th class='col-xs-3'>Active Time</td>
+              <th class='col-xs-3'>Idle Time</td>
+              <th class='col-xs-3'>Total Time</td>
+              <th class='col-xs-3'>% Inactive</td>
           </thead>
           <tbody>
             <tr ng-repeat="historical in flow.historicalTimes">
-              <td>{{(historical[0] / 1000).toFixed(2)}}</td>
-              <td>{{(historical[1] / 1000).toFixed(2)}}</td>
-              <td>{{(historical[2] / 1000).toFixed(2)}}</td>
-              <td>{{historical[3]}}</td>
+              <td class='col-xs-3'>{{(historical[0] / 1000).toFixed(2)}}</td>
+              <td class='col-xs-3'>{{(historical[1] / 1000).toFixed(2)}}</td>
+              <td class='col-xs-3'>{{(historical[2] / 1000).toFixed(2)}}</td>
+              <td class='col-xs-3'>{{historical[3]}}</td>
             </tr>
           </tbody>
         </table>
@@ -99,16 +99,16 @@
         <table class="table table-striped">
           <caption><strong>Historical Queue Sizes</strong></caption>
           <thead>
-            <th ng-repeat="col in flow.queueColumns()">
+            <th class='col-xs-3' ng-repeat="col in flow.queueColumns()">
               {{col.name}}
             </th>
           </thead>
           <tbody>
             <tr ng-repeat="historical in flow.historicalQueues">
-              <td>{{historical[0]}}</td>
-              <td>{{historical[1]}}</td>
-              <td>{{historical[2]}}</td>
-              <td>{{historical[3]}}</td>
+              <td class='col-xs-3'>{{historical[0]}}</td>
+              <td class='col-xs-3'>{{historical[1]}}</td>
+              <td class='col-xs-3'>{{historical[2]}}</td>
+              <td class='col-xs-3'>{{historical[3]}}</td>
             </tr>
           </tbody>
         </table>
