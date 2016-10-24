@@ -5,13 +5,13 @@ angular.module('flowApp', [])
     flow.columns = [
         {name: 'Backlog', id: 1, start: true, end: false, idle: true, wipLimit: 99},
         {name: 'Rqmts', id: 2, start: false, end: false, idle: false, wipLimit: 1},
-        {name: 'RF Desgn', id: 3, start: false, end: false, idle: true, wipLimit: 4},
+        {name: 'RF Desgn', id: 3, start: false, end: false, idle: true, wipLimit: 6},
         {name: 'Design', id: 4, start: false, end: false, idle: false, wipLimit: 1},
-        {name: 'RF Dev', id: 5, start: false, end: false, idle: true, wipLimit: 4},
+        {name: 'RF Dev', id: 5, start: false, end: false, idle: true, wipLimit: 6},
         {name: 'Dev', id: 6, start: false, end: false, idle: false, wipLimit: 1},
-        {name: 'RF QA', id: 7, start: false, end: false, idle: true, wipLimit: 4},
+        {name: 'RF QA', id: 7, start: false, end: false, idle: true, wipLimit: 6},
         {name: 'QA', id: 8, start: false, end: false, idle: false, wipLimit: 1},
-        {name: 'RF Ops', id: 9, start: false, end: false, idle: true, wipLimit: 4},
+        {name: 'RF Ops', id: 9, start: false, end: false, idle: true, wipLimit: 6},
         {name: 'Ops', id: 10, start: false, end: false, idle: false, wipLimit: 1},
         {name: 'Done', id: 11, start: false, end: true, idle: true, wipLimit: 99}
     ];
@@ -22,31 +22,46 @@ angular.module('flowApp', [])
     flow.running = false;
     flow.maxItemProgress = 1;
     flow.minItemProgress = 1;
+    flow.warnLevel = 2;
+    flow.alertLevel = 3;
+
+    flow.warnLevels = {"WIP 1": 1, "WIP 2": 2, "WIP 3": 3, "WIP 4": 4, "WIP 5": 5, "WIP 6": 6};
+    flow.alertLevels = {"WIP 1": 1, "WIP 2": 2, "WIP 3": 3, "WIP 4": 4, "WIP 5": 5, "WIP 6": 6};
 
     flow.workSizes = [1, 2, 3, 4, 5, 8, 13];
     flow.queueSizes = {3: [], 5: [], 7: [], 9: []};
 
     flow.items = [
-      {name: "Widget a", id: 1, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget b", id: 2, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget c", id: 3, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget o", id: 4, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget p", id: 5, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget h", id: 6, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget i", id: 7, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget q", id: 8, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget z", id: 9, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget f", id: 10, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget l", id: 11, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget k", id: 12, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget t", id: 13, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
-      {name: "Widget d", id: 14, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: _.sample(flow.workSizes)},
+      {name: "Widget 1101", id: 1, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1102", id: 2, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1103", id: 3, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1104", id: 4, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1105", id: 5, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1106", id: 6, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1107", id: 7, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1108", id: 8, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1109", id: 9, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1110", id: 10, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1111", id: 11, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1112", id: 12, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1113", id: 13, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1114", id: 14, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1115", id: 15, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1116", id: 16, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1117", id: 17, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1118", id: 18, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1119", id: 19, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
+      {name: "Widget 1120", id: 20, columnId: 1, timestamp: 0, times: {active: 0, idle: 0}, workRemaining: 0},
     ];
 
     flow.resetBoard = function() {
       if (flow.running) { return; };
       if (flow.done) {
-        flow.historicalTimes.push([flow.totalActiveTime(), flow.totalIdleTime(), flow.totalTime(), flow.totalIdleTimePercentage()]);
+        flow.historicalTimes.push([
+          flow.totalActiveTime(),
+          flow.totalIdleTime(),
+          flow.totalTime(),
+          flow.totalIdleTimePercentage()]);
         flow.historicalQueues.push([
           flow.averageQueueSize(flow.columnById(3)),
           flow.averageQueueSize(flow.columnById(5)),
@@ -170,6 +185,21 @@ angular.module('flowApp', [])
         return col.idle;
       });
     };
+
+    flow.columnState = function(col) {
+      if (!col.idle || col.start || col.end) {
+        return "block";
+      }
+      else if (flow.itemsInColumn(col).length >= flow.alertLevel) {
+        return "block-alert";
+      }
+      else if (flow.itemsInColumn(col).length >= flow.warnLevel) {
+        return "block-warn";
+      }
+      else {
+        return "block";
+      }
+    }
 
     flow.itemsRemainingForColumn = function(column) {
       let columns = _.filter(flow.columns, function(col) {

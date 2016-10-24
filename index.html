@@ -13,9 +13,10 @@
       <div class="page-header">
         <button class="btn btn-primary" ng-click="flow.play()" ng-disabled="flow.running || flow.done">Start</button>
         <button class="btn btn-danger" ng-click="flow.resetBoard()" ng-disabled="!flow.done">Reset</button>
+        <span>Warning on WIP 2, Alerting on WIP 3</span>
       </div>
       <div class="row">
-        <div class="even-columns block" ng-repeat="column in flow.columns">
+        <div class="even-columns" ng-repeat="column in flow.columns" ng-class="flow.columnState(column)">
           <span><strong>{{column.name}}</strong></span>
         </div>
       </div>
